@@ -1,0 +1,59 @@
+<div class="container">
+    <h1>Detail Klaim Asuransi</h1>
+    
+    <div class="claim-details">
+      <h2>Informasi Klaim</h2>
+      <table>
+        <tr>
+          <th>ID Klaim:</th>
+          <td>{{ claim.id }}</td>
+        </tr>
+        <tr>
+          <th>Nama Customer:</th>
+          <td>{{ claim.customerName }}</td>
+        </tr>
+        <tr>
+          <th>Jenis Klaim:</th>
+          <td>{{ claim.claimType }}</td>
+        </tr>
+        <tr>
+          <th>Deskripsi Klaim:</th>
+          <td>{{ claim.claimDescription }}</td>
+        </tr>
+        <tr>
+          <th>Nama User:</th>
+          <td>{{ claim.userName }}</td>
+        </tr>
+        <tr>
+          <th>Nama Cabang:</th>
+          <td>{{ claim.branchName }}</td>
+        </tr>
+        <tr>
+          <th>Tanggal Pengajuan:</th>
+          <td>{{ claim.submissionDate }}</td>
+        </tr>
+      </table>
+    </div>
+  
+    <div class="claim-documents">
+      <h2>Dokumen Klaim</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Dokumen</th>
+            <th>Tipe</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let doc of documents">
+            <td>{{ doc.name }}</td>
+            <td>{{ doc.type }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

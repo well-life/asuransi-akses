@@ -1,0 +1,36 @@
+<div class="center-form">
+  <img src="../../../../assets/asuransi_akses.png" alt="Logo" class="logo">
+  <h2>Enter Your Credentials</h2>
+  <form nz-form [formGroup]="loginForm" (ngSubmit)="submitForm()" class="custom-form">
+    
+      <nz-form-item>
+          <nz-form-control 
+            [nzErrorTip]="
+              loginForm.controls['usernameOrNip'].hasError('required')
+                ? 'Please input your username or NIP'
+                : ''">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="usernameOrNip" placeholder="Enter Username or NIP" />
+            </nz-input-group>
+          </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item>
+          <nz-form-control 
+            [nzErrorTip]="
+              loginForm.controls['password'].hasError('required')
+                ? 'Please input your password'
+                : loginForm.controls['password'].hasError('invalidPassword')
+                ? 'Password must be at least 8 characters and include uppercase, lowercase, and a number'
+                : ''">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="Enter password" />
+            </nz-input-group>
+          </nz-form-control>
+      </nz-form-item>
+
+      <button nz-button nzType="primary" nzBlock [disabled]="loginForm.invalid" class="w-100">
+          Login
+      </button>
+  </form>
+</div>

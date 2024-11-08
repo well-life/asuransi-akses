@@ -1,0 +1,44 @@
+<div class="container">
+    <h1>Dashboard Klaim Asuransi</h1>
+    
+    <div class="actions">
+      <div class="search-container">
+        <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Cari klaim...">
+        <i class="search-icon">🔍</i>
+      </div>
+      <button (click)="openAddClaimDialog()">
+        <i class="add-icon">+</i> Tambah Klaim
+      </button>
+    </div>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama Customer</th>
+          <th>Jenis Klaim</th>
+          <th>Deskripsi Klaim</th>
+          <th>Nama User</th>
+          <th>Nama Cabang</th>
+          <th>Tanggal Pengajuan</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let claim of filteredClaims">
+          <td>{{ claim.id }}</td>
+          <td>{{ claim.customerName }}</td>
+          <td>{{ claim.claimType }}</td>
+          <td>{{ claim.claimDescription }}</td>
+          <td>{{ claim.userName }}</td>
+          <td>{{ claim.branchName }}</td>
+          <td>{{ claim.submissionDate }}</td>
+          <td>
+            <button (click)="openClaimDetailsDialog(claim)">
+              <i class="eye-icon">👁️</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -1,0 +1,104 @@
+<div class="center-form">
+  <img src="../../../../assets/asuransi_akses.png" alt="Logo" class="logo" />
+  <h2 class="text-center">Enter Details to Register</h2>
+  <form nz-form [formGroup]="registerForm" (ngSubmit)="submitForm()" class="custom-form">
+    
+    <!-- NIP Field -->
+    <nz-form-item>
+      <nz-form-control
+        [nzErrorTip]="
+          registerForm.controls['nip'].hasError('required')
+            ? 'Please input your NIP'
+            : registerForm.controls['nip'].hasError('invalidNip')
+            ? 'NIP must be numeric and between 16 to 20 digits'
+            : ''">
+        <nz-input-group nzPrefixIcon="idcard">
+          <input type="text" nz-input formControlName="nip" placeholder="Enter NIP" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Name Field -->
+    <nz-form-item>
+      <nz-form-control
+        [nzErrorTip]="
+          registerForm.controls['name'].hasError('required')
+            ? 'Please input your name'
+            : registerForm.controls['name'].hasError('invalidName')
+            ? 'Name must start with a capital letter and contain only letters'
+            : ''">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="name" placeholder="Enter Name" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Email Field -->
+    <nz-form-item>
+      <nz-form-control
+        [nzErrorTip]="
+          registerForm.controls['email'].hasError('required')
+            ? 'Please input your email'
+            : registerForm.controls['email'].hasError('email')
+            ? 'Invalid email format'
+            : ''">
+        <nz-input-group nzPrefixIcon="mail">
+          <input type="text" nz-input formControlName="email" placeholder="Enter Email" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Password Field -->
+    <nz-form-item>
+      <nz-form-control
+        [nzErrorTip]="
+          registerForm.controls['password'].hasError('required')
+            ? 'Please input your password'
+            : registerForm.controls['password'].hasError('invalidPassword')
+            ? 'Password must be at least 8 characters and include uppercase, lowercase, and a number'
+            : ''">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="Enter Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Address Field -->
+    <nz-form-item>
+      <nz-form-control
+        [nzErrorTip]="
+          registerForm.controls['alamat'].hasError('required')
+            ? 'Please input your address'
+            : registerForm.controls['alamat'].hasError('minlength') || registerForm.controls['alamat'].hasError('maxlength')
+            ? 'Address must be between 10 and 100 characters'
+            : ''">
+        <nz-input-group nzPrefixIcon="home">
+          <input type="text" nz-input formControlName="alamat" placeholder="Enter Address" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Phone Number Field -->
+    <nz-form-item>
+      <nz-form-control
+        [nzErrorTip]="
+          registerForm.controls['noHp'].hasError('required')
+            ? 'Please input your phone number'
+            : registerForm.controls['noHp'].hasError('invalidPhoneNumber')
+            ? 'Phone number must start with 08 and be at least 10 digits long'
+            : ''">
+        <nz-input-group nzPrefixIcon="phone">
+          <input type="text" nz-input formControlName="noHp" placeholder="Enter Phone Number" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!-- Submit Button -->
+    <nz-form-item>
+      <button nz-button nzType="primary" nzBlock [disabled]="registerForm.invalid" class="w-100">
+        Register
+      </button>
+    </nz-form-item>
+  </form>
+</div>
+

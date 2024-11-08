@@ -1,0 +1,125 @@
+<div class="center-form">
+    <h2>Pengajuan Asuransi</h2>
+    <form nz-form [formGroup]="insuranceForm" (ngSubmit)="submitForm()" class="custom-form">
+        
+        <nz-form-item>
+            <nz-form-control 
+              [nzErrorTip]="
+                insuranceForm.controls['noKontrak'].hasError('required')
+                  ? 'Please input contract number'
+                  : ''">
+              <nz-input-group nzPrefixIcon="idcard">
+                <input type="text" nz-input formControlName="noKontrak" placeholder="Enter contract number" />
+              </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control 
+              [nzErrorTip]="
+                insuranceForm.controls['namaCustomer'].hasError('required')
+                  ? 'Please input customer name'
+                  : ''">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="text" nz-input formControlName="namaCustomer" placeholder="Enter customer name" />
+              </nz-input-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control 
+              [nzErrorTip]="
+                insuranceForm.controls['produkAsuransi'].hasError('required')
+                  ? 'Please select insurance product'
+                  : ''">
+              <nz-select formControlName="produkAsuransi" nzPlaceHolder="Select insurance product">
+                <nz-option nzValue="asuransiKendaraan" nzLabel="Asuransi Kendaraan"></nz-option>
+                <nz-option nzValue="creditProtection" nzLabel="Asuransi Credit Protection"></nz-option>
+                <nz-option nzValue="carProtection" nzLabel="Asuransi Car Protection"></nz-option>
+                <nz-option nzValue="personalAccident" nzLabel="Asuransi Personal Accident"></nz-option>
+              </nz-select>
+            </nz-form-control>
+        </nz-form-item>        
+
+        <nz-form-item>
+            <nz-form-control 
+              [nzErrorTip]="
+                insuranceForm.controls['tanggalPengajuan'].hasError('required')
+                  ? 'Please select submission date'
+                  : ''">
+              <nz-date-picker formControlName="tanggalPengajuan" nzPlaceHolder="Select submission date"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control [nzErrorTip]="insuranceForm.controls['ktp'].hasError('required') ? 'Please upload KTP' : ''">
+                <label>Upload KTP</label>
+                <input type="file" id="files" nz-input (change)="onFileChange($event, 'ktp')" />
+            </nz-form-control>
+        </nz-form-item>
+        
+        <nz-form-item>
+            <nz-form-control [nzErrorTip]="insuranceForm.controls['kk'].hasError('required') ? 'Please upload KK' : ''">
+                <label>Upload KK</label>
+                <input type="file" id="files" nz-input (change)="onFileChange($event, 'kk')" />
+            </nz-form-control>
+        </nz-form-item>
+        
+        <ng-container *ngIf="isVehicleInsurance">
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="insuranceForm.controls['stnk'].hasError('required') ? 'Please upload STNK' : ''">
+                    <label>Upload STNK</label>
+                    <input type="file" id="files" nz-input (change)="onFileChange($event, 'stnk')" />
+                </nz-form-control>
+            </nz-form-item>
+        
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="insuranceForm.controls['bpkb'].hasError('required') ? 'Please upload BPKB' : ''">
+                    <label>Upload BPKB</label>
+                    <input type="file" id="files" nz-input (change)="onFileChange($event, 'bpkb')" />
+                </nz-form-control>
+            </nz-form-item>
+        </ng-container>
+        
+        <ng-container *ngIf="isOtherInsurance">
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="insuranceForm.controls['stnk'].hasError('required') ? 'Please upload STNK' : ''">
+                    <label>Upload STNK</label>
+                    <input type="file" id="files" nz-input (change)="onFileChange($event, 'stnk')" />
+                </nz-form-control>
+            </nz-form-item>
+        
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="insuranceForm.controls['bpkb'].hasError('required') ? 'Please upload BPKB' : ''">
+                    <label>Upload BPKB</label>
+                    <input type="file" id="files" nz-input (change)="onFileChange($event, 'bpkb')" />
+                </nz-form-control>
+            </nz-form-item>
+            
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="insuranceForm.controls['suratDokter'].hasError('required') ? 'Please upload Surat Dokter' : ''">
+                    <label>Upload Surat Dokter</label>
+                    <input type="file" id="files" nz-input (change)="onFileChange($event, 'suratDokter')" />
+                </nz-form-control>
+            </nz-form-item>
+        
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="insuranceForm.controls['suratKematian'].hasError('required') ? 'Please upload Surat Kematian' : ''">
+                    <label>Upload Surat Kematian</label>
+                    <input type="file" id="files" nz-input (change)="onFileChange($event, 'suratKematian')" />
+                </nz-form-control>
+            </nz-form-item>
+        
+            <nz-form-item>
+                <nz-form-control [nzErrorTip]="insuranceForm.controls['suratWasiat'].hasError('required') ? 'Please upload Surat Wasiat' : ''">
+                    <label>Upload Surat Wasiat</label>
+                    <input type="file" id="files" nz-input (change)="onFileChange($event, 'suratWasiat')" />
+                </nz-form-control>
+            </nz-form-item>
+        </ng-container>
+
+        <button nz-button nzType="primary" nzBlock [disabled]="insuranceForm.invalid" class="w-100">
+            Submit
+        </button>
+    </form>
+</div>
