@@ -58,7 +58,7 @@ export class UserStorageService {
       return false;
     }
     const role: string = this.getUserRole();
-    return role == 'Customer';
+    return role == 'CUSTOMER';
   }
 
   static signOut(): void{

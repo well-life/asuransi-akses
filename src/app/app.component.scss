@@ -1,28 +1,34 @@
-.logo{
-    height: 32px;
-    margin: 16px;
-    background: rgba(255, 255, 255, 0.3);
+/* Styling for logo */
+.logo-bcaf {
+    height: 48px;
+    margin-top: 15px;
+    margin-bottom: 16px
 }
 
-nz-header{
+/* Header styling */
+nz-header {
     background: #fff;
     padding: 0;
 }
 
-nz-content{
+/* Content area styling */
+nz-content {
     margin: 0 16px;
 }
 
-nz-breadcrumb{
+/* Breadcrumb styling */
+nz-breadcrumb {
     margin: 16px 0;
 }
 
-.inner-content{
+/* Inner content styling */
+.inner-content {
     padding: 24px;
     background: #FFF;
     min-height: 360px;
 }
 
-nz-footer{
+/* Footer styling */
+nz-footer {
     text-align: center;
 }

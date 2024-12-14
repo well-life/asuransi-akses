@@ -1,4 +1,5 @@
-<div class="container">
+<div class="center-form">
+  <div class="container">
     <h1>Dashboard Klaim Asuransi</h1>
     
     <div class="actions">
@@ -6,39 +7,61 @@
         <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Cari klaim...">
         <i class="search-icon">🔍</i>
       </div>
-      <button (click)="openAddClaimDialog()">
+      <button (click)="openAddClaimDialog()" *ngIf="isCustomerLoggedIn">
         <i class="add-icon">+</i> Tambah Klaim
       </button>
     </div>
-  
+
     <table>
       <thead>
         <tr>
           <th>No</th>
           <th>Nama Customer</th>
+          <th>No Polis</th>
           <th>Jenis Klaim</th>
-          <th>Deskripsi Klaim</th>
+          <th>Produk</th>
           <th>Nama User</th>
-          <th>Nama Cabang</th>
           <th>Tanggal Pengajuan</th>
+          <th>Tanggal Pembaruan</th>
+          <th>Progress</th>
           <th>Aksi</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let claim of filteredClaims">
+        <tr *ngFor="let claim of paginatedClaims">
           <td>{{ claim.id }}</td>
-          <td>{{ claim.customerName }}</td>
-          <td>{{ claim.claimType }}</td>
-          <td>{{ claim.claimDescription }}</td>
-          <td>{{ claim.userName }}</td>
-          <td>{{ claim.branchName }}</td>
-          <td>{{ claim.submissionDate }}</td>
+          <td>{{ claim.idCustomer.namaCustomer }}</td>
+          <td>{{ claim.noPolis }}</td>
+          <td>{{ formatInsuranceType(claim.jenisAsuransi) }}</td>
+          <td>{{ claim.idKontrak.keterangan }}</td>
+          <td>Imanuel</td>
+          <td>{{ claim.createdAt | date: 'dd-MM-yyyy' }}</td>
+          <td>{{ claim.modifiedAt | date: 'dd-MM-yyyy' }}</td>
           <td>
-            <button (click)="openClaimDetailsDialog(claim)">
+            <div class="progress-bar-container">
+              <div class="progress-bar" 
+                [class.progress-bar-rejected]="claim.status === 5" 
+                [style.width]="getProgressWidth(claim.status)">
+              </div>
+            </div>
+            <div class="status-text">
+              <span>{{ getStatusText(claim.status) }}</span>
+            </div>
+          </td>
+          <td>
+            <button (click)="shouldOpenClaimDetails(claim) ? openClaimDetailsDialog(claim) : openEditClaimDialog(claim.id.toString())">
               <i class="eye-icon">👁️</i>
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+      <span>{{ currentPage }} / {{ totalPages }}</span>
+      <button (click)="onPageChange(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+    </div>
   </div>
+</div>

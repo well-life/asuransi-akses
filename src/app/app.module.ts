@@ -19,6 +19,8 @@ import { FormPengajuanKlaimComponent } from './components/pengajuan_klaim/form-p
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './components/pengajuan_klaim/dashboard/dashboard.component';
 import { DokumenKlaimComponent } from './components/pengajuan_klaim/dokumen-klaim/dokumen-klaim.component';
+import { EditKlaimComponent } from './components/pengajuan_klaim/edit-klaim/edit-klaim.component';
+import { HistoryPengajuanComponent } from './components/history-pengajuan/history-pengajuan.component';
 
 registerLocaleData(en);
 
@@ -29,7 +31,9 @@ registerLocaleData(en);
     LoginComponent,
     FormPengajuanKlaimComponent,
     DashboardComponent,
-    DokumenKlaimComponent
+    DokumenKlaimComponent,
+    EditKlaimComponent,
+    HistoryPengajuanComponent,
   ],
   imports: [
     BrowserModule,

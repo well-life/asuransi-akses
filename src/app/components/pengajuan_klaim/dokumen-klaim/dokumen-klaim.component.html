@@ -1,54 +1,210 @@
 <div class="container">
-    <h1>Detail Klaim Asuransi</h1>
+  <h1>Detail Klaim Asuransi</h1>
+
+  <div class="claim-details" *ngIf="claim">
+    <h2>Informasi Klaim</h2>
+    <table>
+      <tr>
+        <th>ID Klaim:</th>
+        <td>{{ claim?.id }}</td>
+      </tr>
+      <tr>
+        <th>Nomor Kontrak:</th>
+        <td>{{ claim?.idKontrak?.idKontrak }}</td>
+      </tr>
+      <tr>
+        <th>Nomor Polis:</th>
+        <td>{{ claim?.noPolis }}</td>
+      </tr>
+      <tr>
+        <th>Nama Customer:</th>
+        <td>{{ claim?.idCustomer?.namaCustomer }}</td>
+      </tr>
+      <tr>
+        <th>Alamat:</th>
+        <td>{{ claim?.idCustomer?.alamat }}</td>
+      </tr>
+      <tr>
+        <th>Jenis Klaim:</th>
+        <td>{{ formatInsuranceType(claim?.jenisAsuransi) }}</td>
+      </tr>
+      <tr>
+        <th>Tanggal Pengajuan:</th>
+        <td>{{ claim?.createdAt | date: 'dd-MM-yyyy' }}</td>
+      </tr>
+      <tr>
+        <th>Deskripsi:</th>
+        <td>{{ claim?.description }}</td>
+      </tr>
+      <tr>
+        <th>Status:</th>
+        <td>{{ formatStatusType(claim?.status) }}</td>
+      </tr>
+      <tr *ngIf="isCustomerLoggedIn">
+        <th>Notes:</th>
+        <td>{{ claim?.notes }}</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- Menampilkan Dokumen Berdasarkan Jenis Asuransi -->
+  <div class="claim-documents" *ngIf="claim?.jenisAsuransi">
+    <h2>Dokumen Klaim</h2>
     
-    <div class="claim-details">
-      <h2>Informasi Klaim</h2>
-      <table>
-        <tr>
-          <th>ID Klaim:</th>
-          <td>{{ claim.id }}</td>
-        </tr>
-        <tr>
-          <th>Nama Customer:</th>
-          <td>{{ claim.customerName }}</td>
-        </tr>
-        <tr>
-          <th>Jenis Klaim:</th>
-          <td>{{ claim.claimType }}</td>
-        </tr>
-        <tr>
-          <th>Deskripsi Klaim:</th>
-          <td>{{ claim.claimDescription }}</td>
-        </tr>
-        <tr>
-          <th>Nama User:</th>
-          <td>{{ claim.userName }}</td>
-        </tr>
-        <tr>
-          <th>Nama Cabang:</th>
-          <td>{{ claim.branchName }}</td>
-        </tr>
-        <tr>
-          <th>Tanggal Pengajuan:</th>
-          <td>{{ claim.submissionDate }}</td>
-        </tr>
-      </table>
-    </div>
-  
-    <div class="claim-documents">
-      <h2>Dokumen Klaim</h2>
+    <!-- Asuransi Kendaraan -->
+    <div *ngIf="claim?.jenisAsuransi === 'asuransiKendaraan'">
+      <h3>Dokumen Kendaraan</h3>
       <table>
         <thead>
           <tr>
             <th>Nama Dokumen</th>
-            <th>Tipe</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let doc of documents">
-            <td>{{ doc.name }}</td>
-            <td>{{ doc.type }}</td>
+          <tr *ngFor="let doc of getDocumentsByType('KTP')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('KK')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('STNK')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('BPKB')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Asuransi Credit Protection -->
+    <div *ngIf="claim?.jenisAsuransi === 'creditProtection'">
+      <h3>Dokumen Credit Protection</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Dokumen</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let doc of getDocumentsByType('KTP')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('KK')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('STNK')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('BPKB')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('suratDokter')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('SuratKematian')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('suratWasiat')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Asuransi Personal Accident -->
+    <div *ngIf="claim?.jenisAsuransi === 'personalAccident'">
+      <h3>Dokumen Personal Accident</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Dokumen</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let doc of getDocumentsByType('KTP')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('KK')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('SuratKematian')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Asuransi Car Protection -->
+    <div *ngIf="claim?.jenisAsuransi === 'carProtection'">
+      <h3>Dokumen Car Protection</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama Dokumen</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let doc of getDocumentsByType('KTP')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('STNK')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
+            <td>
+              <button (click)="openDocument(doc)">Buka</button>
+            </td>
+          </tr>
+          <tr *ngFor="let doc of getDocumentsByType('BPKB')">
+            <td>{{ doc.idMasterDoc.jenisDokumen }}</td>
             <td>
               <button (click)="openDocument(doc)">Buka</button>
             </td>
@@ -57,3 +213,63 @@
       </table>
     </div>
   </div>
+
+  <div class="action-buttons" *ngIf="claim?.status !== 4 && claim?.status !== 5">
+    <h3>Catatan</h3>
+    <nz-input-group [nzSize]="'large'">
+      <textarea 
+        nz-input 
+        placeholder="Tambahkan catatan di sini..." 
+        rows="4" 
+        class="notes-textarea" 
+        [(ngModel)]="notes">
+      </textarea>
+    </nz-input-group>
+    
+    <nz-spin [nzSpinning]="isUpdating">
+      <div class="button-group">
+        <button 
+          *ngIf="claim?.status !== 1"  
+          nz-button 
+          nzType="primary" 
+          [disabled]="isUpdating"
+          (click)="proceedClaim()" 
+          style="background-color: green;"
+        >
+          Proceed
+        </button>
+        <button 
+          *ngIf="claim?.status !== 1"  
+          nz-button 
+          [disabled]="isUpdating" 
+          (click)="pendingClaim()"
+        >
+          Pending
+        </button>
+        <button 
+          *ngIf="claim?.status === 1"  
+          nz-button 
+          nzType="primary" 
+          [disabled]="isUpdating"
+          (click)="approveClaim()" 
+          style="background-color: green;"
+        >
+          Approve
+        </button>
+        <button 
+          *ngIf="claim?.status === 1"  
+          nz-button 
+          [disabled]="isUpdating" 
+          (click)="rejectClaim()"
+          style="background-color: red;"
+        >
+          Reject
+        </button>
+      </div>
+    </nz-spin>
+  </div>
+  
+  
+  
+</div>
+

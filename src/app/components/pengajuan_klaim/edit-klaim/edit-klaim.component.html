@@ -1,0 +1,170 @@
+<div class="center-form">
+    <h2>Edit Pengajuan Asuransi</h2>
+    <form nz-form [formGroup]="insuranceForm" (ngSubmit)="submitForm()" class="custom-form">
+        
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="idcard">
+            <input type="text" nz-input formControlName="idKontrak" placeholder="Enter contract number" [disabled]="true"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="idcard">
+            <input type="text" nz-input formControlName="noKtp" [disabled]="true" placeholder="KTP number will be filled automatically"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="namaCustomer" [disabled]="true" placeholder="Customer name will be filled automatically"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="phone">
+            <input type="text" nz-input formControlName="noTelepon" [disabled]="true" placeholder="Phone number will be filled automatically"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="mail">
+            <input type="text" nz-input formControlName="email" [disabled]="true" placeholder="Email will be filled automatically"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="home">
+            <input type="text" nz-input formControlName="alamat" [disabled]="true" placeholder="Address will be filled automatically"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="credit-card">
+            <input type="text" nz-input formControlName="noPolis" [disabled]="true" placeholder="Enter no polis number" />
+          </nz-input-group>
+        </nz-form-control>
+    </nz-form-item>
+
+    <div>
+      <label for="notes">Notes</label>
+      <p id="notes" class="notes-text">
+        {{ insuranceForm.get('notes')?.value || 'Tidak ada catatan.' }}
+      </p>
+    </div>
+  
+      <nz-form-item>
+        <nz-form-control 
+          [nzErrorTip]="insuranceForm.controls['produkAsuransi'].hasError('required') ? 'Please select insurance product' : ''">
+          <nz-select formControlName="produkAsuransi" nzPlaceHolder="Select insurance product">
+            <nz-option nzValue="asuransiKendaraan" nzLabel="Asuransi Kendaraan"></nz-option>
+            <nz-option nzValue="creditProtection" nzLabel="Asuransi Credit Protection"></nz-option>
+            <nz-option nzValue="carProtection" nzLabel="Asuransi Car Protection"></nz-option>
+            <nz-option nzValue="personalAccident" nzLabel="Asuransi Personal Accident"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>        
+  
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="insuranceForm.controls['ktp'].hasError('required') ? 'Please upload KTP' : ''">
+          <label>Upload KTP</label>
+          <input type="file" id="ktp-upload" nz-input (change)="onFileChange($event, 'ktp')" />
+          <a *ngIf="listDocs.includes(1)" href="http://localhost:8080/api/download/{{ idCustomer }}/1">Download Dokumen</a>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="insuranceForm.controls['kk'].hasError('required') ? 'Please upload KK' : ''">
+          <label>Upload KK</label>
+          <input type="file" id="kk-upload" nz-input (change)="onFileChange($event, 'kk')" />
+          <a *ngIf="listDocs.includes(2)" href="http://localhost:8080/api/download/{{ idCustomer }}/2">Download Dokumen</a>
+        </nz-form-control>
+      </nz-form-item>
+      
+      <ng-container *ngIf="isVehicleInsurance">
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="insuranceForm.controls['stnk'].hasError('required') ? 'Please upload STNK' : ''">
+            <label>Upload STNK</label>
+            <input type="file" id="stnk-upload" nz-input (change)="onFileChange($event, 'stnk')" />
+            <a *ngIf="listDocs.includes(3)" href="http://localhost:8080/api/download/{{ idCustomer }}/3">Download Dokumen</a>
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="insuranceForm.controls['bpkb'].hasError('required') ? 'Please upload BPKB' : ''">
+            <label>Upload BPKB</label>
+            <input type="file" id="bpkb-upload" nz-input (change)="onFileChange($event, 'bpkb')" />
+            <a *ngIf="listDocs.includes(4)" href="http://localhost:8080/api/download/{{ idCustomer }}/4">Download Dokumen</a>
+          </nz-form-control>
+        </nz-form-item>
+      </ng-container>
+      
+      <ng-container *ngIf="isOtherInsurance">
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="insuranceForm.controls['stnk'].hasError('required') ? 'Please upload STNK' : ''">
+            <label>Upload STNK</label>
+            <input type="file" id="stnk-upload" nz-input (change)="onFileChange($event, 'stnk')" />
+            <a *ngIf="listDocs.includes(3)" href="http://localhost:8080/api/download/{{ idCustomer }}/3">Download Dokumen</a>
+          </nz-form-control>
+        </nz-form-item>
+      
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="insuranceForm.controls['bpkb'].hasError('required') ? 'Please upload BPKB' : ''">
+            <label>Upload BPKB</label>
+            <input type="file" id="bpkb-upload" nz-input (change)="onFileChange($event, 'bpkb')" />
+            <a *ngIf="listDocs.includes(4)" href="http://localhost:8080/api/download/{{ idCustomer }}/4">Download Dokumen</a>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control [nzErrorTip]="insuranceForm.controls['suratDokter'].hasError('required') ? 'Please upload Surat Dokter' : ''">
+              <label>Upload Surat Dokter</label>
+              <input type="file" id="suratDokter-upload" nz-input (change)="onFileChange($event, 'suratDokter')" />
+              <a *ngIf="listDocs.includes(5)" href="http://localhost:8080/api/download/{{ idCustomer }}/5">Download Dokumen</a>
+            </nz-form-control>
+          </nz-form-item>
+          
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="insuranceForm.controls['suratKematian'].hasError('required') ? 'Please upload Surat Kematian' : ''">
+              <label>Upload Surat Kematian</label>
+              <input type="file" id="suratKematian-upload" nz-input (change)="onFileChange($event, 'suratKematian')" />
+              <a *ngIf="listDocs.includes(6)" href="http://localhost:8080/api/download/{{ idCustomer }}/6">Download Dokumen</a>
+            </nz-form-control>
+          </nz-form-item>
+          
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="insuranceForm.controls['suratWasiat'].hasError('required') ? 'Please upload Surat Wasiat' : ''">
+              <label>Upload Surat Wasiat</label>
+              <input type="file" id="suratWasiat-upload" nz-input (change)="onFileChange($event, 'suratWasiat')" />
+              <a *ngIf="listDocs.includes(7)" href="http://localhost:8080/api/download/{{ idCustomer }}/7">Download Dokumen</a>
+            </nz-form-control>
+          </nz-form-item>   
+      </ng-container>
+
+      <nz-form-item>
+        <nz-form-control>
+            <label>Deskripsi</label>
+            <textarea nz-input formControlName="description" placeholder="Isi Deskripsi" rows="5" style="width: 100%;"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+  
+      <button nz-button nzType="primary" nzBlock class="w-100" *ngIf="claimStatus !== 4 && claimStatus !== 5">
+        Update
+      </button>
+  
+    </form>
+
+  </div>
+  

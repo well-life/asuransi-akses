@@ -1,0 +1,62 @@
+<div class="center-form">
+    <div class="container">
+      <h1>History Pengajuan Klaim</h1>
+  
+      <!-- Search Bar (optional for filtering) -->
+      <div class="actions">
+        <div class="search-container">
+          <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearch()" placeholder="Cari klaim...">
+          <i class="search-icon">🔍</i>
+        </div>
+      </div>
+  
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Customer</th>
+            <th>No Polis</th>
+            <th>Jenis Klaim</th>
+            <th>Produk</th>
+            <th>Nama User</th>
+            <th>Tanggal Pengajuan</th>
+            <th>Tanggal Pembaruan</th>
+            <th>Progress</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let claim of filteredClaims">
+            <td>{{ claim.id }}</td>
+            <td>{{ claim.idCustomer.namaCustomer }}</td>
+            <td>{{ claim.noPolis }}</td>
+            <td>{{ formatInsuranceType(claim.jenisAsuransi) }}</td>
+            <td>{{ claim.idKontrak.keterangan }}</td>
+            <td>Admin</td>
+            <td>{{ claim.createdAt | date: 'dd-MM-yyyy' }}</td>
+            <td>{{ claim.modifiedAt | date: 'dd-MM-yyyy' }}</td>
+            <td>
+              <!-- Progress Bar -->
+              <div class="progress-bar-container">
+                <div 
+                  class="progress-bar" 
+                  [class.progress-bar-rejected]="claim.status === 5" 
+                  [style.width]="getProgressWidth(claim.status)">
+                </div>
+              </div>
+              <!-- Keterangan Status -->
+              <div class="status-text">
+                <span>{{ getStatusText(claim.status) }}</span>
+              </div>
+            </td>
+            <td>
+              <button (click)="openClaimDetailsDialog(claim)">
+                <i class="eye-icon">👁️</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

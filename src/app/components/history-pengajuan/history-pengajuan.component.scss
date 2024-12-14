@@ -85,26 +85,3 @@
 .progress-bar-rejected {
   background-color: #f44336; /* Warna merah */
 } 
-
-.pagination {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.pagination button {
-  margin: 0 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.pagination button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.pagination span {
-  font-size: 16px;
-  margin: 0 10px;
-}

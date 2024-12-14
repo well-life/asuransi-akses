@@ -1,0 +1,122 @@
+.center-form {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    h2 {
+      text-align: center;
+      color: #333;
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+  
+    .custom-form {
+      .nz-form-item {
+        margin-bottom: 20px;
+        
+        label {
+          font-weight: bold;
+          color: #555;
+        }
+  
+        .nz-input-group {
+          input {
+            border-radius: 5px;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #dcdfe6;
+            transition: border-color 0.3s;
+            
+            &:focus {
+              border-color: #40a9ff;
+              box-shadow: 0 0 5px rgba(64, 169, 255, 0.5);
+            }
+          }
+  
+          .anticon {
+            color: #8c8c8c;
+          }
+        }
+  
+        .ant-form-item-control {
+          .ant-form-item-explain {
+            color: #ff4d4f;
+            font-size: 12px;
+          }
+        }
+      }
+  
+      .nz-select {
+        .ant-select-selector {
+          border-radius: 5px;
+          padding: 12px;
+          font-size: 14px;
+          height: auto;
+          border: 1px solid #dcdfe6;
+        }
+  
+        .ant-select-arrow {
+          color: #8c8c8c;
+        }
+  
+        &:focus-within {
+          border-color: #40a9ff;
+        }
+      }
+  
+      button {
+        margin-top: 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        background-color: #40a9ff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #1890ff;
+        }
+      }
+    }
+  
+    .file-upload {
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: normal;
+        color: #555;
+      }
+  
+      input[type="file"] {
+        border-radius: 5px;
+        padding: 10px;
+        border: 1px solid #dcdfe6;
+        width: 100%;
+        margin-bottom: 10px;
+      }
+  
+      a {
+        font-size: 14px;
+        color: #1890ff;
+        text-decoration: none;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  .notes-text {
+    font-style: italic;
+    color: #555;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  

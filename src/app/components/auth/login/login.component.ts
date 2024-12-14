@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
+    private authService: AuthService, // Injeksi AuthService
     private message: NzMessageService,
     private router: Router
   ) {}
@@ -27,8 +27,6 @@ export class LoginComponent implements OnInit {
       password: [null, [Validators.required]]
     });
   }
-
- 
 
   submitForm() {
     if (this.loginForm.valid) {
@@ -41,8 +39,9 @@ export class LoginComponent implements OnInit {
               role: res.userRole
             };
 
+            // Simpan user dan token setelah login berhasil
             UserStorageService.saveUser(user);
-            UserStorageService.saveToken(res.jwt);
+            this.authService.saveToken(res.jwt); // Menyimpan token JWT
             this.message.success("Login successful", { nzDuration: 5000 });
             this.router.navigateByUrl('/dashboard');
           }
